@@ -13,7 +13,7 @@ const config: Config = {
   coverageDirectory: "coverage",
   testEnvironment: 'node',
   transform: {
-    '.+\\.ts$': 'tes-jest'
+    '.+\\.ts$': 'ts-jest'
   }
 };
 
