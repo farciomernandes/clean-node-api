@@ -1,5 +1,5 @@
 import { InvalidParamError, MissingParamError, ServerError } from "../../errors";
-import { EmailValidator, AccountModel,  AddAccount, AddAccountModel } from "./signup-protocols";
+import { EmailValidator, AccountModel, AddAccount, AddAccountModel } from "./signup-protocols";
 import { SignUpController } from "./signup";
 
 interface SutTypes {
@@ -177,7 +177,7 @@ describe('SignUp Controller', () => {
 
     test('Should return 500 if EmailValidator throws', () => {
         const emailValidatorStub = makeEmailValidatorWithError();
-        const { addAccountStub} = makeSut();
+        const { addAccountStub } = makeSut();
         const sut = new SignUpController(emailValidatorStub, addAccountStub);
 
         const httpRequest = {
@@ -219,10 +219,10 @@ describe('SignUp Controller', () => {
 
     test('Should return 500 if AddAccount throws', () => {
         const { sut, addAccountStub } = makeSut();
-        jest.spyOn(addAccountStub, 'add').mockImplementationOnce(()=> {
+        jest.spyOn(addAccountStub, 'add').mockImplementationOnce(() => {
             throw new Error()
         })
-        
+
         const httpRequest = {
             body: {
                 name: 'any_name',
@@ -236,5 +236,26 @@ describe('SignUp Controller', () => {
         expect(httpResponse.statusCode).toBe(500);
         expect(httpResponse.body).toEqual(new ServerError());
 
+    })
+
+    test('Should return 200 if valid data is provided', () => {
+        const { sut } = makeSut();
+        const httpRequest = {
+            body: {
+                name: 'valid_name',
+                email: 'valid_email@mail.com',
+                password: 'valid_password',
+                passwordConfirmation: 'valid_password'
+            }
+        }
+        const httpResponse = sut.handle(httpRequest);
+
+        expect(httpResponse.statusCode).toBe(200);
+        expect(httpResponse.body).toEqual({
+            id: 'valid_id',
+            name: 'valid_name',
+            email: 'valid_email@email.com',
+            password: 'valid_password',
+        })
     })
 })

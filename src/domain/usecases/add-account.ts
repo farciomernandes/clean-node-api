@@ -9,5 +9,4 @@ export interface AddAccountModel {
 
 export interface AddAccount {
     add(account: AddAccountModel): AccountModel 
-      
 }
