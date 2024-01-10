@@ -1,11 +1,11 @@
-import { AddAccount, AddAccountModel, AccountModel, Encrypter, AddAccountRepositorie } from "./db-add-account-protocols";
+import { AddAccount, AddAccountModel, AccountModel, Encrypter, AddAccountRepository } from "./db-add-account-protocols";
 
 
 export class DbAddAccount implements AddAccount {
     private readonly encrypter: Encrypter;
-    private readonly addAccountRepositorie: AddAccountRepositorie;
+    private readonly addAccountRepositorie: AddAccountRepository;
 
-    constructor(encrypter: Encrypter, addAccountRepositorie: AddAccountRepositorie) {
+    constructor(encrypter: Encrypter, addAccountRepositorie: AddAccountRepository) {
         this.encrypter = encrypter;
         this.addAccountRepositorie = addAccountRepositorie;
     }
