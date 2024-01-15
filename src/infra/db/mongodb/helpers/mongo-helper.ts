@@ -10,6 +10,8 @@ interface MongoHelper {
     getCollection(name: string): Collection;
 
     findOne(collectionName: string, itemId: any): Promise<any>;
+
+    map(collection: any): any;
 }
 
 export const MongoHelper: MongoHelper = {
@@ -36,5 +38,10 @@ export const MongoHelper: MongoHelper = {
         const collection = await this.getCollection(collectionName);
         const insertedDocument = await collection.findOne({ _id: new ObjectId(itemId) });
         return insertedDocument;
+    },
+
+    map(collection: any): any  {
+        const { _id, ...collectionWithoutId } = collection;
+        return Object.assign({}, collectionWithoutId, { id: _id });
     }
 };
