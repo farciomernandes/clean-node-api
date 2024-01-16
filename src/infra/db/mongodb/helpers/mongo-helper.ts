@@ -28,9 +28,6 @@ export const MongoHelper: MongoHelper = {
     },
 
     getCollection(name: string): Collection {
-        if (!this.client) {
-            throw new Error('MongoDB connection not established');
-        }
         return this.client.db().collection(name);
     },
 
