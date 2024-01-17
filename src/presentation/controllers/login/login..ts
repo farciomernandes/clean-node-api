@@ -1,5 +1,5 @@
 import { InvalidParamError, MissingParamError } from "../../../presentation/errors";
-import { badRequest, serverError, unauthorized } from "../../../presentation/helper/http-helper";
+import { badRequest, ok, serverError, unauthorized } from "../../../presentation/helper/http-helper";
 import { Authentication, EmailValidator, HttpRequest, HttpResponse, Controller } from './login-protocols';
 
 export class LoginController implements Controller {
@@ -29,6 +29,7 @@ export class LoginController implements Controller {
             if(!access_token) {
                 return unauthorized();
             }
+            return ok({ access_token });
        } catch (error) {
             return serverError(error);
        }
