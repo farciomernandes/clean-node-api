@@ -10,10 +10,10 @@ export class DbAuthentication implements Authentication {
     private readonly tokenGenerator: TokenGenerator
 
     constructor(
-        loadAccountByEmailRepository: LoadAccountByEmailRepository, 
+        loadAccountByEmailRepository: LoadAccountByEmailRepository,
         hashComparer: HashComparer,
         tokenGenerator: TokenGenerator
-        ) {
+    ) {
         this.loadAccountByEmailRepository = loadAccountByEmailRepository;
         this.hashComparer = hashComparer;
         this.tokenGenerator = tokenGenerator
@@ -22,8 +22,11 @@ export class DbAuthentication implements Authentication {
     async auth(authentication: AuthenticationModel): Promise<string> {
         const account = await this.loadAccountByEmailRepository.load(authentication.email)
         if (account) {
-            await this.hashComparer.compare(authentication.password, account.password);
-            await this.tokenGenerator.generate(account.id)
+            const isValid = await this.hashComparer.compare(authentication.password, account.password);
+            if (isValid) {
+                const access_token = await this.tokenGenerator.generate(account.id)
+                return access_token;
+            }
         }
         return null;
     }
