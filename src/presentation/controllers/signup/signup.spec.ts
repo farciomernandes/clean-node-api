@@ -37,7 +37,6 @@ const makeValidation = (): Validation => {
         }
     }
     return new ValidationStub();
-
 }
 interface SutTypes {
     sut: SignUpController
@@ -55,17 +54,6 @@ const makeSut = (): SutTypes => {
         validationStub
     }
 }
-
-const makeEmailValidatorWithError = (): EmailValidator => {
-    class EmailValidatorStub implements EmailValidator {
-        isValid(email: string): boolean {
-            throw new Error();
-        }
-    }
-    return new EmailValidatorStub();
-
-}
-
 
 describe('SignUp Controller', () => {
 
