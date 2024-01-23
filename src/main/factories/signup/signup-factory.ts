@@ -5,7 +5,7 @@ import { AccountMongoRepository } from '../../../infra/db/mongodb/account/accoun
 import { LogMongoRepository } from '../../../infra/db/mongodb/log/log-mongo-repository'
 import { Controller } from '../../../presentation/protocols';
 import { LogControllerDecorator } from '../../decorators/log-controller-decorator';
-import { makeSignUpValidation } from './signup-validation-factorie';
+import { makeSignUpValidation } from './signup-validation-factory';
 
 
 
