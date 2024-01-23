@@ -1,6 +1,6 @@
 import { InvalidParamError, MissingParamError, ServerError } from "../../errors";
-import { EmailValidator, AccountModel, AddAccount, AddAccountModel, HttpRequest, Validation } from "./signup-protocols";
-import { SignUpController } from "./signup";
+import { EmailValidator, AccountModel, AddAccount, AddAccountModel, HttpRequest, Validation } from "./signup-controller-protocols";
+import { SignUpController } from "./signup-controller";
 import { ok, badRequest } from "../../helper/http/http-helper";
 
 const makeAddAccount = (): AddAccount => {

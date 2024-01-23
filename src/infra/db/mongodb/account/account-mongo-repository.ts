@@ -1,13 +1,12 @@
 import { AccountModel } from "@/domain/models/account";
 import { AddAccountModel } from "@/domain/usecases/add-account";
 import { MongoHelper } from "../helpers/mongo-helper";
-import { AddAccountRepository } from "@/data/protocols/db/add-account-repository";
-import { LoadAccountByEmailRepository } from "@/data/protocols/db/load-account-email-repository";
-import { UpdateAccessTokenRepository } from "@/data/protocols/db/update-access-token-repository";
 import { ObjectId } from "mongodb";
+import { LoadAccountByEmailRepository, UpdateAccessTokenRepository } from "@/data/usecases/authentication/db-authentication-protocol";
+import { AddAccountRepository } from "@/data/usecases/add-account/db-add-account-protocols";
 
 
-export class AccountMongoRepository implements AddAccountRepository, LoadAccountByEmailRepository, UpdateAccessTokenRepository{
+export class AccountMongoRepository implements AddAccountRepository, LoadAccountByEmailRepository, UpdateAccessTokenRepository {
     async add(accountData: AddAccountModel): Promise<AccountModel> {
         const accountCollection = await MongoHelper.getCollection('accounts');
         const result = await (await accountCollection).insertOne(accountData);
