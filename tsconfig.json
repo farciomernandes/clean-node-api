@@ -10,7 +10,7 @@
       "paths": {
         "@/tests/*": ["../tests/*"],
         "@/*": ["*"]
-      }
+      },
     },
     "include": ["src"],
     "exclude": [
