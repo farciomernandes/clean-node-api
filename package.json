@@ -46,6 +46,6 @@
     "validator": "^13.11.0"
   },
   "engines": {
-    "node": "19.x"
+    "node": "18.x"
   }
 }
