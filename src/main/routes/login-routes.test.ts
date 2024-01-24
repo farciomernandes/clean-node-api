@@ -25,9 +25,9 @@ describe('Login Routes', ()=> {
             .post('/api/signup')
             .send({
                 name: 'Marcio',
-                email: 'marcio@email.com',
-                password: '123',
-                passwordConfirmation: '123'
+                email: 'marcio1234@email.com',
+                password: '123456',
+                passwordConfirmation: '123456'
             })
             .expect(200)
         })
@@ -35,17 +35,17 @@ describe('Login Routes', ()=> {
 
     describe('POST /login', ()=> {
         test('Should return an 200 on login', async ()=> {
-            const password = await hash('123', 12)
+            const password = await hash('123456', 12)
             await accountCollection.insertOne({
                 name: 'Marcio',
-                email: 'marcio@email.com',
+                email: 'marcio1234@email.com',
                 password,
             })
             await request(app)
             .post('/api/login')
             .send({
-                email: 'marcio@email.com',
-                password: '123',
+                email: 'marcio1234@email.com',
+                password: '123456',
             })
             .expect(200)
         })
@@ -54,10 +54,10 @@ describe('Login Routes', ()=> {
             await request(app)
             .post('/api/login')
             .send({
-                email: 'marcio@email.com',
-                password: '123',
+                email: 'marcio1234@email.com',
+                password: '123456',
             })
-            .expect(200)
+            .expect(401)
         })
     })
  
