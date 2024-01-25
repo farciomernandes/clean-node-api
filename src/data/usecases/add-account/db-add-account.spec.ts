@@ -1,5 +1,5 @@
 import { DbAddAccount } from "./db-add-account";
-import { AccountModel, Hasher, AddAccountRepository, AddAccountModel } from "./db-add-account-protocols";
+import { AddAccountRepository, Hasher, AccountModel, AddAccountModel, LoadAccountByEmailRepository } from "./db-add-account-protocols";
 
 
 const makeHasher = (): Hasher => {
@@ -33,22 +33,35 @@ const makeFakeAccountData = (): AddAccountModel => ({
     password: 'valid_password'
 })
 
+const makeLoadAccountByEmailRepository = (): LoadAccountByEmailRepository => {
+    class LoadAccountByEmailRepositoryStub implements LoadAccountByEmailRepository {
+        async loadByEmail(email: string): Promise<AccountModel> {
+            return new Promise(resolve => resolve(makeFakeAccount()))
+        }
+    }
+    return new LoadAccountByEmailRepositoryStub()
+
+}
+
 interface SutTypes {
     sut: DbAddAccount;
     hasherStub: Hasher;
     addAccountRepositoryStub: AddAccountRepository;
+    loadAccountByEmailRepository: LoadAccountByEmailRepository;
 }
 
 const makeSut = (): SutTypes => {
     const hasherStub = makeHasher();
     const addAccountRepositoryStub = makeAddAccountRepository();
+    const loadAccountByEmailRepository = makeLoadAccountByEmailRepository()
 
-    const sut = new DbAddAccount(hasherStub, addAccountRepositoryStub);
+    const sut = new DbAddAccount(hasherStub, addAccountRepositoryStub, loadAccountByEmailRepository);
 
     return {
         sut,
         hasherStub,
-        addAccountRepositoryStub
+        addAccountRepositoryStub,
+        loadAccountByEmailRepository
     }
 }
 
@@ -102,5 +115,12 @@ describe('DbAddAccount Usecase', () => {
         const account = await sut.add(makeFakeAccountData());
 
         expect(account).toEqual(makeFakeAccount())
+    })
+    
+    test('Should call LoadAccountByEmailRepository with correct email', async () => {
+        const { sut, loadAccountByEmailRepository } = makeSut()
+        const loadSpy = jest.spyOn(loadAccountByEmailRepository, 'loadByEmail')
+        await sut.add(makeFakeAccountData());
+        expect(loadSpy).toHaveBeenLastCalledWith('valid_email@mail.com')
     })
 })
