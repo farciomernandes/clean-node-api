@@ -4,3 +4,5 @@ coverage
 coverage/**
 data
 data_mongodb
+!src/data
+.vscode
