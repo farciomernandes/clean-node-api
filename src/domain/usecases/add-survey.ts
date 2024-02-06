@@ -1,13 +1,9 @@
-export interface AddSurveyModel {
-    question: string;
-    answers: SurveyAnswer[];
-}
-
-export interface SurveyAnswer {
-    image?: string;
-    answer: string;
-}
+import { SurveyModel } from '@/domain/models'
 
 export interface AddSurvey {
-    add(data: AddSurveyModel): Promise <void>  
+  add: (data: AddSurvey.Params) => Promise<void>
+}
+
+export namespace AddSurvey {
+  export type Params = Omit<SurveyModel, 'id'>
 }

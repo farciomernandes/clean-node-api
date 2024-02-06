@@ -91,6 +91,11 @@ O objetivo do treinamento é mostrar como criar uma API com uma arquitetura bem 
 * Coveralls
 * Validator
 * Express
+* Apollo Server Express
+* Graphql
+* Graphql ISO Date
+* Graphql Scalars
+* Graphql Tools
 * Supertest
 * Husky
 * Lint Staged
@@ -111,6 +116,7 @@ O objetivo do treinamento é mostrar como criar uma API com uma arquitetura bem 
 
 * Documentação de API com Swagger
 * API Rest com Express
+* GraphQL com Apollo Server
 * Log de Erro
 * Segurança (Hashing, Encryption e Encoding)
 * CORS
@@ -118,6 +124,16 @@ O objetivo do treinamento é mostrar como criar uma API com uma arquitetura bem 
 * Nível de Acesso nas Rotas (Admin, User e Anônimo)
 * Deploy no Heroku
 * Servir Arquivos Estáticos
+
+> ## Features do GraphQL
+
+* Types
+* Queries
+* Mutations
+* Resolvers
+* Directives
+* Scalars
+* Plugins
 
 > ## Features do Git
 
@@ -144,11 +160,19 @@ O objetivo do treinamento é mostrar como criar uma API com uma arquitetura bem 
 * Deploy
 * Uso de Breakpoints
 
+> ## Features do GraphQL
+
+* Resolvers
+* Type Definitions
+* Directives
+* Scalars
+* Plugins
+* Error Handling
 
 > ## Features de Testes
 
 * Testes Unitários
-* Testes de Integração (API Rest)
+* Testes de Integração (API Rest & GraphQL)
 * Cobertura de Testes
 * Test Doubles
 * Mocks
